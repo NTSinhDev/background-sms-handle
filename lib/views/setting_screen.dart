@@ -1,6 +1,3 @@
-import 'dart:developer';
-
-import 'package:background_listen_sms/config/base_config.dart';
 import 'package:flutter/material.dart';
 
 import '../main.dart';
@@ -111,7 +108,15 @@ class _SettingScreenState extends State<SettingScreen> {
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 36),
               child: ElevatedButton(
-                onPressed: Navigator.of(context).pop,
+                onPressed: () async {
+                  Future.wait([
+                    localStoreService.setBaseURL(baseURL),
+                    localStoreService.setEndPoint(endPoint),
+                    localStoreService.setProtocol(protocolHttp),
+                  ]).then((_) {
+                    Navigator.of(context).pop();
+                  });
+                },
                 style: ButtonStyle(
                   backgroundColor: WidgetStatePropertyAll(
                     Theme.of(context).colorScheme.inversePrimary,

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:background_listen_sms/model/sms_data.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -11,17 +9,23 @@ import 'package:readsms/readsms.dart';
 
 import 'background_handler/background_handler.dart';
 import 'local_datasources/local_datasources.dart';
+import 'provider/local_storage_service.dart';
 import 'views/dash_board_screen.dart';
 import 'provider/auth_provider.dart';
 
 LocalDataSource<SMSData> smsLocalDataSource = SMSLocalDataSource();
+LocalStoreService localStoreService = LocalStoreService();
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Workmanager().initialize(callbackDispatcher, isInDebugMode: kDebugMode);
   await smsLocalDataSource.openIsarInstance();
   await Workmanager().cancelAll();
+  await localStoreService.config();
+  // await initializeService();
   runApp(const MyApp());
 }
+
+
 
 bool protocolHttp = true;
 String endPoint = "/api/v1/casso/mobile/callback";

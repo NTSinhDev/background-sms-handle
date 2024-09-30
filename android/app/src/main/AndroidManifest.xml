@@ -1,8 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- <uses-permission android:name="android.permission.READ_SMS" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" /> -->
+    <!-- <uses-permission android:name="android.permission.READ_SMS" /> -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <application
-        android:label="background_listen_sms"
+        android:label="Support Dev SMS"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
@@ -26,14 +26,15 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+            <!-- flutter_background_service of pub dev -->
+            <!-- TODO: Changed 'WhatForegroundServiceTypeDoYouWant' to service name -->
+            <!-- <service
+                android:name="id.flutter.flutter_background_service.BackgroundService"
+                android:foregroundServiceType="WhatForegroundServiceTypeDoYouWant"
+            /> -->
         </activity>
 
-        <!-- flutter_background_service of pub dev -->
-        <!-- TODO: Changed 'WhatForegroundServiceTypeDoYouWant' to service name -->
-        <!-- <service
-            android:name="id.flutter.flutter_background_service.BackgroundService"
-            android:foregroundServiceType="WhatForegroundServiceTypeDoYouWant"
-        /> -->
 
         <!-- Don't delete the meta-data below.
              This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->

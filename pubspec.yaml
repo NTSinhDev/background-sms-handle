@@ -43,7 +43,8 @@ dependencies:
   isar_flutter_libs: ^3.1.0+1
   rxdart: ^0.27.7
   path_provider: ^2.1.4
-
+  flutter_background_service: ^5.0.10
+  flutter_local_notifications: ^17.2.3
   # start here
   # sms_receiver: ^0.4.2
 
@@ -53,6 +54,7 @@ dev_dependencies:
   build_runner: ^2.4.9
   isar_generator: ^3.1.0+1
   analyzer: ^5.13.0
+  icons_launcher: ^2.1.7
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
