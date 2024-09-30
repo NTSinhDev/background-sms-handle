@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:background_listen_sms/model/sms_data.dart';
-import 'package:background_listen_sms/utils/constants.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart'
@@ -24,31 +23,15 @@ Future<void> main() async {
   runApp(const MyApp());
 }
 
+bool protocolHttp = true;
+String endPoint = "/api/v1/casso/mobile/callback";
+String baseURL = "192.168.31.51:3300";
+
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
   @override
   State<MyApp> createState() => _MyAppState();
-}
-
-int idTask = 0;
-Future<void> createBackgroundTask(SMS sms) async {
-  await Workmanager().registerOneOffTask(
-    idTask.toString(),
-    sendSMSDataToServerTaskName,
-    tag: "sms-$idTask",
-    existingWorkPolicy: ExistingWorkPolicy.keep,
-    constraints: Constraints(
-      networkType: NetworkType.connected,
-      requiresBatteryNotLow: false,
-      requiresCharging: false,
-      requiresDeviceIdle: false,
-      requiresStorageNotLow: false,
-    ),
-    backoffPolicy: BackoffPolicy.exponential,
-    backoffPolicyDelay: Duration.zero,
-    inputData: MySMS.fromSMS(sms).toMap(),
-  );
 }
 
 class _MyAppState extends State<MyApp> {
@@ -62,9 +45,6 @@ class _MyAppState extends State<MyApp> {
         _plugin.read();
         _plugin.smsStream.listen((SMS sms) {
           idTask++;
-          log(sms.body, name: "body");
-          log(sms.sender, name: "sender");
-          log(sms.timeReceived.toString(), name: "timeReceived");
 
           _createTaskForWorkmanager(sms);
         });

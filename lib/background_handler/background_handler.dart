@@ -2,12 +2,33 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:background_listen_sms/model/sms_data.dart';
+import 'package:readsms/readsms.dart';
 import 'package:workmanager/workmanager.dart';
 import 'package:http/http.dart' as http;
 
 import '../config/base_config.dart';
 import '../main.dart';
 import '../utils/constants.dart';
+
+int idTask = 0;
+Future<void> createBackgroundTask(SMS sms) async {
+  await Workmanager().registerOneOffTask(
+    idTask.toString(),
+    sendSMSDataToServerTaskName,
+    tag: "sms-$idTask",
+    existingWorkPolicy: ExistingWorkPolicy.keep,
+    constraints: Constraints(
+      networkType: NetworkType.connected,
+      requiresBatteryNotLow: false,
+      requiresCharging: false,
+      requiresDeviceIdle: false,
+      requiresStorageNotLow: false,
+    ),
+    backoffPolicy: BackoffPolicy.exponential,
+    backoffPolicyDelay: Duration.zero,
+    inputData: MySMS.fromSMS(sms).toMap(),
+  );
+}
 
 @pragma('vm:entry-point')
 void callbackDispatcher() {

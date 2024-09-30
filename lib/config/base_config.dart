@@ -1,3 +1,6 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import '../main.dart';
+
 class BaseConfig {
   BaseConfig._();
 
@@ -11,8 +14,7 @@ class BaseConfig {
     return Uri.https(baseURL, endPoint, smsData);
   }
 
-  /// true: http, false: https
-  bool protocolHttp = true;
-  String endPoint = "/api/v1/casso/mobile/callback";
-  String baseURL = "192.168.31.51:3300";
+
+  @override
+  String toString() => 'BaseConfig(protocolHttp: $protocolHttp, endPoint: $endPoint, baseURL: $baseURL)';
 }

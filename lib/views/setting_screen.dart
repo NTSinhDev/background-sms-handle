@@ -1,5 +1,9 @@
+import 'dart:developer';
+
 import 'package:background_listen_sms/config/base_config.dart';
 import 'package:flutter/material.dart';
+
+import '../main.dart';
 
 class SettingScreen extends StatefulWidget {
   const SettingScreen({super.key});
@@ -9,24 +13,18 @@ class SettingScreen extends StatefulWidget {
 }
 
 class _SettingScreenState extends State<SettingScreen> {
-  final _baseURLController =
-      TextEditingController(text: BaseConfig.ins.baseURL);
-  final _endPointController =
-      TextEditingController(text: BaseConfig.ins.endPoint);
+  final _baseURLController = TextEditingController(text: baseURL);
+  final _endPointController = TextEditingController(text: endPoint);
 
   @override
   void initState() {
     super.initState();
     _endPointController.addListener(
-      () {
-        BaseConfig.ins.endPoint = _endPointController.text;
-      },
+      () => endPoint = _endPointController.text,
     );
 
     _baseURLController.addListener(
-      () {
-        BaseConfig.ins.baseURL = _baseURLController.text;
-      },
+      () => baseURL = _baseURLController.text,
     );
   }
 
@@ -34,6 +32,8 @@ class _SettingScreenState extends State<SettingScreen> {
   void dispose() {
     _endPointController.removeListener(() {});
     _baseURLController.removeListener(() {});
+    _endPointController.dispose();
+    _baseURLController.dispose();
     super.dispose();
   }
 
@@ -58,9 +58,9 @@ class _SettingScreenState extends State<SettingScreen> {
                 Expanded(
                   child: RadioListTile<bool>(
                     value: true,
-                    groupValue: BaseConfig.ins.protocolHttp,
+                    groupValue: protocolHttp,
                     onChanged: (value) {
-                      BaseConfig.ins.protocolHttp = value ?? false;
+                      protocolHttp = value ?? true;
                       setState(() {});
                     },
                     title: Text(
@@ -72,9 +72,9 @@ class _SettingScreenState extends State<SettingScreen> {
                 Expanded(
                   child: RadioListTile<bool>(
                     value: false,
-                    groupValue: BaseConfig.ins.protocolHttp,
+                    groupValue: protocolHttp,
                     onChanged: (value) {
-                      BaseConfig.ins.protocolHttp = value ?? false;
+                      protocolHttp = value ?? false;
                       setState(() {});
                     },
                     title: Text(

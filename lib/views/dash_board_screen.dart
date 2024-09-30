@@ -4,7 +4,7 @@ import 'package:background_listen_sms/utils/extension.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../main.dart';
+import '../background_handler/background_handler.dart';
 import '../utils/custom_rich_text.dart';
 import 'setting_screen.dart';
 
