@@ -1,6 +1,6 @@
 # background_listen_sms
 
-A new Flutter project.
+Listen sms data, catch message send to server.
 
 ## Getting Started
 
